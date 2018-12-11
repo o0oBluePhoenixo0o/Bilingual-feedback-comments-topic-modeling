@@ -1,21 +1,7 @@
 # Dualingual feedback comments topic modeling
 Topic modeling with LDA, CTM and STM on RMarkdown document
----
-title: "Customers Feedbacks Topic Modeling"
-author: "Trung Nguyen"
-date: "10 December, 2018"
-output: 
-  html_document: 
-    toc: true
-    toc_float: true
-    theme: united
-    number_section: true
-    toc_depth: 3
-    highlight: tango
-    keep_md: true
----
 
-
+__For interactive charts and full images, please clone the repository and run the html file__
 
 __Timespan:__ 1 week
 
@@ -418,18 +404,10 @@ new.order <- RJSONIO::fromJSON(json)$topic.order
 serVis(json, out.dir = "vis_en", open.browser = F)
 ```
 
-```
-## Warning in dir.create(out.dir): 'vis_en' already exists
-```
-
-```
-## Loading required namespace: servr
-```
-
 <link rel="stylesheet" type="text/css" href="vis_en/lda.css">
-<script src="vis_en/d3.v3.js"></script>
-<script src="vis_en/ldavis.js"></script>
-<iframe width="1200" height="1500" src="vis_en/index.html" frameborder="0"></iframe>
+<script src="../vis_en/d3.v3.js"></script>
+<script src="../vis_en/ldavis.js"></script>
+<iframe width="1200" height="1500" src="../vis_en/index.html" frameborder="0"></iframe>
 
 
 ```r
