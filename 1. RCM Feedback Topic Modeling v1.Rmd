@@ -10,10 +10,12 @@ output:
     number_section: true
     toc_depth: 3
     highlight: tango
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.path = "images/")
 rm(list= ls())
 gc()
 
@@ -21,7 +23,7 @@ gc()
 
 __Timespan:__ 1 week
 
-In this mini project, I will try to perform topic modelings with __LDA, CTM and STM__ on the feedback comments of a product from customers in bilingual (German and English). The overall objective is to have a glance at how the models clustering and to give support to the experts in classifying the comments.
+In this mini project, I will try to perform topic modelings with __LDA__ on the feedback comments of a product from customers in bilingual (German and English). The overall objective is to have a glance at how the models clustering and to give support to the experts in classifying the comments.
 
 Since there is not an existing dual-vocabulary dictionary, conducting "multilingual topic model" is not feasible in a short time span (ref: _"Multilingual Topic Models for Unaligned Text"_ - [https://arxiv.org/ftp/arxiv/papers/1205/1205.2657.pdf](https://arxiv.org/ftp/arxiv/papers/1205/1205.2657.pdf))
 
