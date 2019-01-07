@@ -88,7 +88,7 @@ df %>%
 
 Remove duplicates. Detect languages using majority voting of 3 packages: cld2/3 and textcat
 
-```{r Prep:detect languages, warning = FALSE}
+```{r Prep  - detect languages, warning = FALSE}
 
 # Extract from main df
 text.df <- df 
@@ -149,7 +149,7 @@ _Notice:_
 In this pipeline, I haven't experimented with "Stemming", "Lemmitization" yet. 
 Also, no "Part-Of-Speech" was involved. In the future if this project is continued, "POS-tagging" can help to build models that react only to nouns, adjectives, adverbs..etc. which might be useful in detecting topics of incoming documents.
 
-```{r Prep: split into 2 dfs}
+```{r Prep - split into 2 dfs}
 
 AposToSpace = function(x){
   x= gsub("'", ' ', x)
@@ -175,7 +175,7 @@ text.de <- text.de %>%
 # Language Corpus {.tabset .tabset-fade .tabset-pills}
 
 ## English
-```{r Prep: preprocessing (en)}
+```{r Prep - preprocessing (en)}
 # Cleaning
 # English corpus
 text.en <- text.en %>%
@@ -191,7 +191,7 @@ text.en <- text.en %>%
 
 Generating corpus and document-features matrix for English corpus
 
-```{r Prep: generating corpus, warning = FALSE}
+```{r Prep - generating corpus, warning = FALSE}
 #######
 # English text
 corp.en <- corpus(text.en$Content) # cleaned
@@ -208,7 +208,7 @@ vdfm.en <- dfm_trim(dfm.en, min_termfreq = 5, min_docfreq = 2)
 
 Plot wordclouds for English corpus: with raw-term frequencies and tf-idf
 
-```{r EDA: Wordcloud for EN corpus, warning = FALSE}
+```{r EDA- Wordcloud for EN corpus, warning = FALSE}
 # English text
 # Plot wordclouds (raw-term frequencies)
 textplot_wordcloud(vdfm.en,  scale=c(3.5, .75), color=brewer.pal(8, "Dark2"), 
@@ -220,7 +220,7 @@ textplot_wordcloud(dfm_tfidf(vdfm.en),  scale = c(3.5, .75), color = brewer.pal(
 
 Explore dendogram to view how words are clustering:
 
-```{r EDA: Dendogram for word clustering (en)}
+```{r EDA- Dendogram for word clustering (en)}
 
 numWords <- 50
 
@@ -232,7 +232,7 @@ plot(wordCluster, xlab="", main="(EN) TF-IDF Frequency weighting (First 50 Words
 ```
 
 ## German
-```{r Prep: preprocessing (de)}
+```{r Prep- preprocessing (de)}
 # German corpus
 text.de <- text.de %>%
   rowwise() %>%
@@ -262,7 +262,7 @@ vdfm.de <- dfm_trim(dfm.de, min_termfreq = 5, min_docfreq = 2)
 
 Plot wordclouds for German corpus: with raw-term frequencies and tf-idf
 
-```{r EDA: Wordcloud for DE corpus, warning = FALSE}
+```{r EDA- Wordcloud for DE corpus, warning = FALSE}
 # Plot wordclouds (raw-term frequencies)
 textplot_wordcloud(vdfm.de,  scale=c(3.5, .75), color=brewer.pal(8, "Dark2"), 
      random_order = F, rotation=0.1, max_words=250, main = "Raw Counts (de)")
@@ -274,7 +274,7 @@ textplot_wordcloud(dfm_tfidf(vdfm.de),  scale = c(3.5, .75), color = brewer.pal(
 
 Explore dendogram to view how words are clustering:
 
-```{r EDA: Dendogram for word clustering (de)}
+```{r EDA- Dendogram for word clustering (de)}
 numWords <- 50
 
 wordDfm <- dfm_tfidf(dfm_weight(vdfm.de))
@@ -330,7 +330,7 @@ topicmodels_json_ldavis <- function(fitted, dfm, dtm){
 
 Create _document-term matrix_ and analyze to get best __k__ (number of topics/clusters) for LDA model using package "ldatuning"
 
-```{r LDA: Creating dtm and find best k (EN)}
+```{r LDA- Creating dtm and find best k (EN)}
 dtm.en <- convert(vdfm.en, to = "topicmodels")
 
 # Finding best k
@@ -352,7 +352,7 @@ FindTopicsNumber_plot(result_k.en)
 
 As can be seen from the result above for the English corpus, we can assume that the best number of topics in low-range is __8 or 16__
 
-```{r LDA: Building LDA model (EN)}
+```{r LDA- Building LDA model (EN)}
 k <- 8 # add low-range topic model first
 
 df_lda.en <- LDA(dtm.en,
@@ -367,7 +367,7 @@ df_lda.en <- LDA(dtm.en,
 
 Use Shiny-based interactive visualization, convert model results to a json object that LDAVis requires.
 
-```{r LDA: Visualize results (EN)}
+```{r LDA- Visualize results (EN)}
 json <- topicmodels_json_ldavis(df_lda.en, vdfm.en, dtm.en)
 new.order <- RJSONIO::fromJSON(json)$topic.order
 
@@ -380,7 +380,7 @@ serVis(json, out.dir = "vis_en", open.browser = F)
 <script src="vis_en/ldavis.js"></script>
 <iframe width="1200" height="1500" src="vis_en/index.html" frameborder="0"></iframe>
 
-```{r LDA: Apply topics to the documents (EN)}
+```{r LDA- Apply topics to the documents (EN)}
 
 # Apply topic to documents
 
@@ -431,7 +431,7 @@ text.en <- left_join(text.en,toptopics.en, by = "id")
 ```
 
 Create _document-term matrix_ and analyze to get best __k__ (number of topics/clusters) for LDA model using package "ldatuning"
-```{r LDA: Creating dtm and find best k (DE)}
+```{r LDA-Creating dtm and find best k (DE)}
 dtm.de <- convert(vdfm.de, to = "topicmodels")
 
 # Finding best k
@@ -453,7 +453,7 @@ FindTopicsNumber_plot(result_k.en)
 
 As can be seen from the result above for the German corpus, we can assume that the best number of topics in low-range is __16__
 The next chunk code is building LDA model and apply it on the current German corpus
-```{r LDA: Building LDA model (DE)}
+```{r LDA-Building LDA model (DE)}
 k <- 16 # add low-range topic model first
 
 df_lda.de <- LDA(dtm.de,
@@ -468,7 +468,7 @@ df_lda.de <- LDA(dtm.de,
 
 Use Shiny-based interactive visualization, convert model results to a json object that LDAVis requires.
 
-```{r LDA: Visualize results (DE)}
+```{r LDA-Visualize results (DE)}
 json <- topicmodels_json_ldavis(df_lda.de, vdfm.de, dtm.de)
 new.order <- RJSONIO::fromJSON(json)$topic.order
 
@@ -481,7 +481,7 @@ serVis(json, out.dir = "vis_de", open.browser = F)
 <script src="vis_de/ldavis.js"></script>
 <iframe width="1200" height="1500" src="vis_de/index.html" frameborder="0"></iframe>
 
-```{r LDA: Apply topics to the documents (DE)}
+```{r LDA-Apply topics to the documents (DE)}
 
 # Apply topic to documents
 
