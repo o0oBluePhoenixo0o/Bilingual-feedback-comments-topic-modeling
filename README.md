@@ -1,11 +1,11 @@
 # Dualingual feedback comments topic modeling
-Topic modeling with LDA, CTM and STM on RMarkdown document
+Topic modeling with LDA on RMarkdown document
 
 __For interactive charts and full images, please clone the repository and run the html file__
 
 __Timespan:__ 1 week
 
-In this mini project, I will try to perform topic modelings with __LDA, CTM and STM__ (currently on LDA is available) on the feedback comments of a product from customers in bilingual (German and English). The overall objective is to have a glance at how the models clustering and to give support to the experts in classifying the comments.
+In this mini project, I will try to perform topic modelings with __LDA__ on the feedback comments of a product from customers in bilingual (German and English). The overall objective is to have a glance at how the models clustering and to give support to the experts in classifying the comments.
 
 Since there is not an existing dual-vocabulary dictionary, conducting "multilingual topic model" is not feasible in a short time span ( _"Multilingual Topic Models for Unaligned Text"_ - [https://arxiv.org/ftp/arxiv/papers/1205/1205.2657.pdf](https://arxiv.org/ftp/arxiv/papers/1205/1205.2657.pdf))
 
@@ -235,7 +235,7 @@ textplot_wordcloud(vdfm.en,  scale=c(3.5, .75), color=brewer.pal(8, "Dark2"),
      random_order = F, rotation=0.1, max_words=250, main = "Raw Counts (en)")
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/EDA: Wordcloud for EN corpus-1.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/EDA-%20Wordcloud%20for%20EN%20corpus-1.png)<!-- -->
 
 ```r
 # Wordclouds (tf-idf)
@@ -243,7 +243,7 @@ textplot_wordcloud(dfm_tfidf(vdfm.en),  scale = c(3.5, .75), color = brewer.pal(
      random_order = F, rotation=0.1, max_words = 250, main = "TF-IDF (en)")
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/EDA: Wordcloud for EN corpus-2.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/EDA-%20Wordcloud%20for%20EN%20corpus-2.png)<!-- -->
 
 Explore dendogram to view how words are clustering:
 
@@ -258,7 +258,7 @@ wordCluster <- hclust(wordDistMat)
 plot(wordCluster, xlab="", main="(EN) TF-IDF Frequency weighting (First 50 Words)")
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/EDA: Dendogram for word clustering (en)-1.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/EDA-%20Dendogram%20for%20word%20clustering%20(en)-1.png)<!-- -->
 
 ## German
 
@@ -298,7 +298,7 @@ textplot_wordcloud(vdfm.de,  scale=c(3.5, .75), color=brewer.pal(8, "Dark2"),
      random_order = F, rotation=0.1, max_words=250, main = "Raw Counts (de)")
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/EDA: Wordcloud for DE corpus-1.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/EDA-%20Wordcloud%20for%20DE%20corpus-1.png)<!-- -->
 
 ```r
 # Wordclouds (tf-idf)
@@ -306,7 +306,7 @@ textplot_wordcloud(dfm_tfidf(vdfm.de),  scale = c(3.5, .75), color = brewer.pal(
      random_order = F, rotation=0.1, max_words = 250, main = "TF-IDF (de)")
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/EDA: Wordcloud for DE corpus-2.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/EDA-%20Wordcloud%20for%20DE%20corpus-2.png)<!-- -->
 
 Explore dendogram to view how words are clustering:
 
@@ -321,7 +321,7 @@ wordCluster <- hclust(wordDistMat)
 plot(wordCluster, xlab="", main="(DE) TF-IDF Frequency weighting (First 50 Words)")
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/EDA: Dendogram for word clustering (de)-1.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/EDA-%20Dendogram%20for%20word%20clustering%20(de)-1.png)<!-- -->
 
 # Topic Modeling with LDA (Latent Dirichlet Allocation) {.tabset .tabset-fade .tabset-pills}
 
@@ -364,7 +364,7 @@ result_k.en <- FindTopicsNumber(
 FindTopicsNumber_plot(result_k.en)
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/LDA: Creating dtm and find best k (EN)-1.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/LDA-%20Creating%20dtm%20and%20find%20best%20k%20(EN)-1.png)<!-- -->
 
 As can be seen from the result above for the English corpus, we can assume that the best number of topics in low-range is __8 or 16__
 
@@ -479,7 +479,7 @@ result_k.de <- FindTopicsNumber(
 FindTopicsNumber_plot(result_k.en)
 ```
 
-![](1._RCM_Feedback_Topic_Modeling_v1_files/figure-html/LDA: Creating dtm and find best k (DE)-1.png)<!-- -->
+![](https://github.com/o0oBluePhoenixo0o/Bilingual-feedback-comments-topic-modeling/blob/master/images/LDA-Creating%20dtm%20and%20find%20best%20k%20(DE)-1.png)<!-- -->
 
 As can be seen from the result above for the German corpus, we can assume that the best number of topics in low-range is __16__
 The next chunk code is building LDA model and apply it on the current German corpus
